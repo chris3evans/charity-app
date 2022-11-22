@@ -28,6 +28,8 @@ export class SearchPageComponent implements OnInit {
     this.currentSearch = this.charities.filter((charity) => {
       return charity.tags.includes(this.currentCat) && charity.name.toLowerCase().includes(this.formValue.toLowerCase());
     });
+    //--Updating suggested search options--
+    this.options = this.currentSearch.map(e => e.name);
   }
   ngOnInit(): void {
     this.userService
