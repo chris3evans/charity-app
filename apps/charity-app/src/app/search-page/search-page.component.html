@@ -4,13 +4,12 @@
     <h1>Choose a charity</h1>
   </div>
   <form #f="ngForm" class="search">
-    <div>
-      <select class="category" [(ngModel)]="currentCat" (ngModelChange)="checkValidity()">
-        <option *ngFor="let cate of categories" [value]="cate">
-          {{cate}}
-        </option>
-      </select>
-    </div>
+    <mat-form-field appearance="outline" class="category">
+      <mat-label>Category</mat-label>
+      <mat-select [(ngModel)]="currentCat" (ngModelChange)="checkValidity()">
+        <mat-option *ngFor="let cate of categories" [value]="cate">{{cate}}</mat-option>
+      </mat-select>
+    </mat-form-field>
     <mat-form-field appearance="outline" class="field">
       <input [(ngModel)]="formValue" (ngModelChange)="checkValidity()" type="text" placeholder="Search charity..."
         matInput name="search" [matAutocomplete]="auto" />
