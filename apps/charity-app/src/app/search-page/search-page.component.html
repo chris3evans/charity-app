@@ -5,9 +5,9 @@
   </div>
   <form #f="ngForm" class="search">
     <mat-form-field appearance="outline" class="category">
-      <mat-label>Category</mat-label>
-      <mat-select [(ngModel)]="currentCat" (ngModelChange)="checkValidity()">
-        <mat-option *ngFor="let cate of categories" [value]="cate">{{cate}}</mat-option>
+      <mat-label>Tags</mat-label>
+      <mat-select name="tags" [(ngModel)]="currentTag" (ngModelChange)="checkValidity()">
+        <mat-option *ngFor="let tag of tags" [value]="tag">{{tag}}</mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="outline" class="field">

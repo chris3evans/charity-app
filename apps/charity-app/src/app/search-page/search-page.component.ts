@@ -14,8 +14,8 @@ export class SearchPageComponent implements OnInit {
   currentSearch: Charity[] = [];
   user!: User;
   options: string[] = [];
-  categories: string[] = [];
-  currentCat: string = '';
+  tags: string[] = [];
+  currentTag: string = '';
   formValue = '';
   formDisabled = true;
 
@@ -24,13 +24,18 @@ export class SearchPageComponent implements OnInit {
     private userService: CurrentUserService,
     private router: Router
   ) { }
+
   checkValidity() {
+    const search = this.formValue.toLowerCase();
     this.currentSearch = this.charities.filter((charity) => {
-      return charity.tags.includes(this.currentCat) && charity.name.toLowerCase().includes(this.formValue.toLowerCase());
+      return (this.currentTag === '')
+        ? charity.name.toLowerCase().includes(search)//if no tag is specified
+        : charity.tags.includes(this.currentTag) && charity.name.toLowerCase().includes(search)
     });
     //--Updating suggested search options--
     this.options = this.currentSearch.map(e => e.name);
   }
+
   ngOnInit(): void {
     this.userService
       .setUser()
@@ -38,12 +43,25 @@ export class SearchPageComponent implements OnInit {
         this.charities = this.currentSearch = [...this.api.db].sort(
           () => 0.5 - Math.random()
         );
+        //-----------------------Previous Version----------------------------
+        /* var start = performance.now();
         this.options = this.charities.map((el) => el.name).sort();
-        //Extracting all the available categories/tags from charities to use as filter
+        //Extracting all the available tags from charities to use as filter
         const allTags = this.charities.map((el) => el.tags).reduce((acc, e) => acc = [...e, ...acc], []);
         const uniqueTags = new Set([...allTags]);//Romoving duplicates by converting to Set
-        this.categories = Array.from(uniqueTags).sort();//Converting back to array
-        //---------------------------------------------------------------------------
+        this.tags = Array.from(uniqueTags).sort();//Converting back to array
+        var end = performance.now(); */
+        //-----------------------New Version---------------------------------
+        var start = performance.now();
+        const uniqueTags = new Set<string>();
+        this.charities.forEach((el) => {
+          this.options.push(el.name);
+          el.tags.map(tag => uniqueTags.add(tag));
+        });
+        this.tags = Array.from(uniqueTags).sort();
+        var end = performance.now();
+        //-------------------------------------------------------------------
+        console.log("Speed performance: ", (end - start));
         this.user = this.userService.currentUser;
       })
       .catch((e) => console.log(e));

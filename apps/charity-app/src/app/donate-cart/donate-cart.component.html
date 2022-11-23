@@ -5,11 +5,7 @@
   </div>
 
   <mat-list class="cart" *ngIf="cart.length > 0; else elseBlock">
-    <charity-app-production-cart-item
-      *ngFor="let item of cart"
-      [item]="item"
-      (updateCart)="removeItem($event)"
-    >
+    <charity-app-production-cart-item *ngFor="let item of cart" [item]="item" (updateCart)="removeItem($event)">
     </charity-app-production-cart-item>
   </mat-list>
   <ng-template #elseBlock>
@@ -18,17 +14,12 @@
   <mat-divider></mat-divider>
   <div class="checkout">
     <h3>TOTAL</h3>
-    <h2>£{{ cartTotal }}.00 GBP</h2>
+    <h2>£{{ cartTotal }} GBP</h2>
   </div>
   <mat-divider></mat-divider>
 </div>
 <div class="box">
-  <button
-    *ngIf="cart.length > 0"
-    class="button"
-    mat-button
-    (click)="checkOut()"
-  >
+  <button *ngIf="cart.length > 0" class="button" mat-button (click)="checkOut()">
     Donate
   </button>
 </div>

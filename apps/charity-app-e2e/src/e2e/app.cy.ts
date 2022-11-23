@@ -73,8 +73,12 @@ describe('Search page', () => {
     cy.get(".mat-button-wrapper").click();
     cy.get('button[name=searchbutton]').click();
     cy.wait(1500);
-    cy.get('input[name=search]').type('Climate Central');
-    cy.wait(150);
+    cy.get('mat-select[name=tags]').click();
+    cy.wait(1500);
+    cy.get('#cdk-overlay-0').contains('climate').click();
+    cy.wait(1500);
+    cy.get('input[name=search]').type('Climate Solutions Accelerator');
+    cy.wait(1500);
     cy.get('.mat-card').should('have.length', 1);
 
   });
@@ -84,17 +88,17 @@ describe('Pick a charity and donate clothes', () => {
 
   //before(() => cy.visit('http://localhost:4200'));
 
-  it('Go to "Climate Central" page', () => {
+  it('Go to "Climate Solutions Accelerator" page', () => {
 
     cy.get('.mat-card-content').first().find('h3').then(($title) => {
-      expect($title.text()).to.equal('Climate Central');
+      expect($title.text()).to.equal('Climate Solutions Accelerator');
     });
 
     cy.get('.mat-card-content').first().find('h2').click();
     cy.wait(1500);
   });
 
-  it('Go to "Climate Central" clothes donation form', () => {
+  it('Go to "Climate Solutions Accelerator" clothes donation form', () => {
 
     cy.get('.buttons').contains('Donate Clothes').click();
     cy.wait(1500);
