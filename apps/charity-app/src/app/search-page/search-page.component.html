@@ -4,10 +4,21 @@
     <h1>Choose a charity</h1>
   </div>
   <form #f="ngForm" class="search">
+    <div>
+      <select
+        class="category"
+        [(ngModel)]="currentCat"
+        (ngModelChange)="checkValidity()"
+      >
+        <option *ngFor="let cate of tags" [value]="cate">
+          {{ cate }}
+        </option>
+      </select>
+    </div>
     <mat-form-field appearance="outline" class="field">
       <input
         [(ngModel)]="formValue"
-        (ngModelChange)="checkValidity($event)"
+        (ngModelChange)="checkValidity()"
         type="text"
         placeholder="Search charity..."
         matInput
@@ -27,6 +38,7 @@
       *ngFor="let charity of currentSearch"
       [charity]="charity"
       class="banner"
-    ></charity-app-production-charity-card>
+    >
+    </charity-app-production-charity-card>
   </div>
 </div>

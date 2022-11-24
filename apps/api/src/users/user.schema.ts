@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { Charity } from '@charity-app-production/api-interfaces';
 
 export type UserDocument = HydratedDocument<user>;
 
@@ -30,6 +31,9 @@ export class user {
 
   @Prop()
   donations: string[];
+
+  @Prop()
+  favoriteCharities: Charity[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(user);

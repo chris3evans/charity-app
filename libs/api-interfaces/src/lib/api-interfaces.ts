@@ -7,6 +7,13 @@ export interface User {
   picture: string;
   cart: Item[];
   donations: Donation[];
+  favoriteCharities: Charity[];
+}
+
+export interface Favorite {
+  userId: string;
+  charityId: string;
+  charity: Charity;
 }
 
 export interface Charity {
@@ -18,6 +25,7 @@ export interface Charity {
   profileUrl: string;
   tags: string[];
   shop_items: Item[];
+  isFavorite: Boolean;
 }
 
 export interface Item {
@@ -37,4 +45,12 @@ export interface Donation {
   amount: number;
   charity: Charity;
   owner: User;
+}
+
+export interface ErrorInfo {
+  errorName: string;
+  errorMessage: string;
+  errorUrl: string;
+  errorStatusCode: number;
+  userMessage: string;
 }

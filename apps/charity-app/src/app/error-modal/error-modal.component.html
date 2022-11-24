@@ -1,0 +1,19 @@
+<div class="modal">
+  <div class="justify-right">
+    <button
+      [mat-dialog-close]
+      mat-button
+      class="close-button"
+      role="will close the error modal when clicked"
+    >
+      <mat-icon aria-label="an icon of a x">close</mat-icon>
+    </button>
+  </div>
+  <div class="block">
+    <h2 mat-dialog-title>{{ data.userMessage }}</h2>
+  </div>
+  <div class="block">
+    <h3 mat-dialog-title>Error Status Code: {{ data.errorStatusCode }}</h3>
+    <h6 mat-dialog-title>What's Happening: {{ errorExplanationMessage }}</h6>
+  </div>
+</div>

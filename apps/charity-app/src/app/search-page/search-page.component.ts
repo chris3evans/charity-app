@@ -7,13 +7,15 @@ import { CurrentUserService } from '../utils/current-user.service';
 @Component({
   selector: 'charity-app-production-search-page',
   templateUrl: './search-page.component.html',
-  styleUrls: ['./search-page.component.css'],
+  styleUrls: ['./search-page.component.css']
 })
 export class SearchPageComponent implements OnInit {
   charities: Charity[] = [];
   currentSearch: Charity[] = [];
   user!: User;
   options: string[] = [];
+  tags: string[] = [];
+  currentCat: string = '';
   formValue = '';
   formDisabled = true;
 
@@ -22,10 +24,12 @@ export class SearchPageComponent implements OnInit {
     private userService: CurrentUserService,
     private router: Router
   ) {}
-  checkValidity(event: string) {
+  checkValidity() {
     this.currentSearch = this.charities.filter((charity) => {
-      if (event === '') return this.charities;
-      return charity.name.toLowerCase().includes(event.toLowerCase());
+      return (
+        charity.tags.includes(this.currentCat) &&
+        charity.name.toLowerCase().includes(this.formValue.toLowerCase())
+      );
     });
   }
   ngOnInit(): void {
@@ -35,7 +39,12 @@ export class SearchPageComponent implements OnInit {
         this.charities = this.currentSearch = [...this.api.db].sort(
           () => 0.5 - Math.random()
         );
-        this.options = this.charities.map((el) => el.name).sort();
+        const uniqueTags = new Set<string>();
+        this.charities.forEach((el) => {
+          this.options.push(el.name);
+          el.tags.map((tag) => uniqueTags.add(tag));
+        });
+        this.tags = Array.from(uniqueTags).sort();
         this.user = this.userService.currentUser;
       })
       .catch((e) => console.log(e));

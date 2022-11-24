@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@charity-app-production/material';
 import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
-import { AuthModule } from '@auth0/auth0-angular';
+import { AuthModule, AuthService } from '@auth0/auth0-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
@@ -28,6 +28,10 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { FavoritesButtonComponent } from './Favorites/favorites-button/favorites-button.component';
+import { FavoritesPageComponent } from './Favorites/favorites-page/favorites-page.component';
+import { ErrorModalComponent } from './error-modal/error-modal.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +52,9 @@ import { SpinnerComponent } from './spinner/spinner.component';
     SearchPageComponent,
     ConfirmModalComponent,
     SpinnerComponent,
+    FavoritesButtonComponent,
+    FavoritesPageComponent,
+    ErrorModalComponent
   ],
   imports: [
     BrowserModule,
@@ -57,14 +64,14 @@ import { SpinnerComponent } from './spinner/spinner.component';
     MaterialModule,
     AuthModule.forRoot({
       domain: environment.AUTH_DOMAIN,
-      clientId: environment.AUTH_CLIENTID,
+      clientId: environment.AUTH_CLIENTID
     }),
     RouterModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
+    FormsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [HttpClientModule, AuthService, AuthModule],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
