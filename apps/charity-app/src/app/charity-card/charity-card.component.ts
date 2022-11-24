@@ -35,12 +35,12 @@ export class CharityCardComponent {
     const favoriteCharity = this.charity;
 
     if (this.charityIsFavorite) {
-      this.user.removeFromFavorites(favoriteCharity).subscribe(
-        (data) => {
+      this.user.removeFromFavorites(favoriteCharity).subscribe({
+        next: (data) => {
           this.charityIsFavorite = false;
           this.listenFavCharityChangeEvent();
         },
-        (error) => {
+        error: (error) => {
           this.dialog.open(ErrorModalComponent, {
             data: {
               errorName: error.name,
@@ -51,15 +51,15 @@ export class CharityCardComponent {
             }
           });
         }
-      );
+      });
     } else {
-      this.user.addToFavorites(favoriteCharity).subscribe(
-        (data) => {
+      this.user.addToFavorites(favoriteCharity).subscribe({
+        next: (data) => {
           this.user.currentUser = { ...data };
           this.charityIsFavorite = true;
           this.listenFavCharityChangeEvent();
         },
-        (error) => {
+        error: (error) => {
           this.dialog.open(ErrorModalComponent, {
             data: {
               errorName: error.name,
@@ -70,7 +70,7 @@ export class CharityCardComponent {
             }
           });
         }
-      );
+      });
     }
   }
 
