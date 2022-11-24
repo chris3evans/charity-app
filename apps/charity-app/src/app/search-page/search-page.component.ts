@@ -14,7 +14,7 @@ export class SearchPageComponent implements OnInit {
   currentSearch: Charity[] = [];
   user!: User;
   options: string[] = [];
-  categories: string[] = [];
+  tags: string[] = [];
   currentCat: string = '';
   formValue = '';
   formDisabled = true;
@@ -39,20 +39,14 @@ export class SearchPageComponent implements OnInit {
         this.charities = this.currentSearch = [...this.api.db].sort(
           () => 0.5 - Math.random()
         );
-        this.options = this.charities.map((el) => el.name).sort();
-        //Extracting all the available categories/tags from charities to use as filter
-        const allTags = this.charities
-          .map((el) => el.tags)
-          .reduce((acc, e) => (acc = [...e, ...acc]), []);
-        const uniqueTags = new Set([...allTags]); //Romoving duplicates by converting to Set
-        this.categories = Array.from(uniqueTags).sort(); //Converting back to array
-        //---------------------------------------------------------------------------
+        const uniqueTags = new Set<string>();
+        this.charities.forEach((el) => {
+          this.options.push(el.name);
+          el.tags.map((tag) => uniqueTags.add(tag));
+        });
+        this.tags = Array.from(uniqueTags).sort();
         this.user = this.userService.currentUser;
       })
       .catch((e) => console.log(e));
   }
 }
-
-// looping over charities twice
-// map and reduce have been used together - reduce will do what map does as well
-// 1 single reduce over this.api.db (don't modify)

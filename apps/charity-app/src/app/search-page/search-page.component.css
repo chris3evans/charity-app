@@ -19,7 +19,6 @@ mat-icon {
   transform: scale(1.7);
   margin-left: 0.5em;
   color: var(--primary);
-
 }
 
 .field {
@@ -31,6 +30,8 @@ mat-icon {
 .banner {
   max-height: 400px;
   max-width: 400px;
+  align-self: center;
+  justify-self: center;
 }
 
 .banners {
@@ -42,20 +43,16 @@ mat-icon {
   padding-bottom: 2em;
   height: 70%;
   padding: 2em;
-
 }
 
-
-
-
-::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
   color: var(--primary) !important;
   background-color: var(--secondary-background);
-
 }
 
 ::ng-deep .mat-input-element {
-
   caret-color: white !important;
 }
 
